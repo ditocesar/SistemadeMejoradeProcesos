@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistema de Mejora de Procesos | DMAIC</title>
-  <meta name="description" content="Curso universitario de 14 semanas en Metodología DMAIC para mejora de procesos en empresas reales. Docentes: Orlando Paz, Jorge Lopez, Fernando Ojeda." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta name="description"
+    content="Curso universitario de 14 semanas en Metodología DMAIC para mejora de procesos en empresas reales. Docentes: Orlando Paz, Jorge Lopez, Fernando Ojeda." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --navy: #0f2547;
@@ -25,13 +34,15 @@
       --slate-light: #64748b;
       --bg: #f0f4ff;
       --white: #ffffff;
-      --card-bg: rgba(255,255,255,0.95);
+      --card-bg: rgba(255, 255, 255, 0.95);
       --radius: 16px;
-      --shadow: 0 4px 24px rgba(15,37,71,0.12);
-      --shadow-lg: 0 12px 48px rgba(15,37,71,0.18);
+      --shadow: 0 4px 24px rgba(15, 37, 71, 0.12);
+      --shadow-lg: 0 12px 48px rgba(15, 37, 71, 0.18);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -42,638 +53,1097 @@
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(15,37,71,0.97);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(15, 37, 71, 0.97);
       backdrop-filter: blur(12px);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 0 5%;
       height: 64px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     }
+
     .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: 700; color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
     }
-    .nav-logo span { color: var(--teal-light); }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+
+    .nav-logo span {
+      color: var(--teal-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
     .nav-links a {
-      color: rgba(255,255,255,0.75); text-decoration: none;
-      font-size: 0.88rem; font-weight: 500; transition: color 0.2s;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--teal-light); }
+
+    .nav-links a:hover {
+      color: var(--teal-light);
+    }
 
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
       background: linear-gradient(135deg, #0f2547 0%, #1a3a6e 50%, #0d4f6e 100%);
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       padding: 80px 5% 60px;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     #hero::before {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
+
     /* animated circles */
     .hero-circle {
-      position: absolute; border-radius: 50%; opacity: 0.08;
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
       animation: pulse 6s ease-in-out infinite;
     }
-    .hero-circle:nth-child(1){ width:500px;height:500px;background:var(--teal);top:-150px;right:-100px; }
-    .hero-circle:nth-child(2){ width:300px;height:300px;background:var(--blue-light);bottom:-80px;left:10%;animation-delay:2s; }
-    .hero-circle:nth-child(3){ width:180px;height:180px;background:var(--amber);top:30%;right:20%;animation-delay:4s; }
-    @keyframes pulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.08);} }
 
-    .hero-content { position: relative; z-index: 2; max-width: 700px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(45,212,191,0.15); border: 1px solid rgba(45,212,191,0.4);
-      color: var(--teal-light); font-size: 0.82rem; font-weight: 600;
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
-      text-transform: uppercase; letter-spacing: 1px;
+    .hero-circle:nth-child(1) {
+      width: 500px;
+      height: 500px;
+      background: var(--teal);
+      top: -150px;
+      right: -100px;
     }
-    .hero-badge::before { content:'●'; font-size:0.5rem; animation: blink 1.5s infinite; }
-    @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.3;} }
+
+    .hero-circle:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: var(--blue-light);
+      bottom: -80px;
+      left: 10%;
+      animation-delay: 2s;
+    }
+
+    .hero-circle:nth-child(3) {
+      width: 180px;
+      height: 180px;
+      background: var(--amber);
+      top: 30%;
+      right: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(45, 212, 191, 0.15);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      color: var(--teal-light);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-badge::before {
+      content: '●';
+      font-size: 0.5rem;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
 
     .hero-title {
       font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 900; color: var(--white);
-      line-height: 1.15; margin-bottom: 12px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 12px;
     }
-    .hero-title .accent { color: var(--teal-light); }
+
+    .hero-title .accent {
+      color: var(--teal-light);
+    }
+
     .hero-subtitle {
-      font-size: 1.15rem; color: rgba(255,255,255,0.7);
-      margin-bottom: 32px; line-height: 1.6;
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 32px;
+      line-height: 1.6;
     }
 
     .stats-row {
-      display: flex; flex-wrap: wrap; gap: 28px; margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-bottom: 40px;
     }
-    .stat-item { text-align: left; }
-    .stat-num { font-size: 2rem; font-weight: 800; color: var(--amber-light); line-height: 1; }
-    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .stat-item {
+      text-align: left;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--amber-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .btn-primary {
       background: linear-gradient(135deg, var(--teal), var(--blue-light));
-      color: white; padding: 14px 30px; border-radius: 50px;
-      font-weight: 700; font-size: 0.95rem; text-decoration: none;
-      box-shadow: 0 6px 20px rgba(13,148,136,0.4);
+      color: white;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(13,148,136,0.5); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(13, 148, 136, 0.5);
+    }
+
     .btn-outline {
-      border: 2px solid rgba(255,255,255,0.3); color: white;
-      padding: 12px 28px; border-radius: 50px;
-      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
       transition: border-color 0.2s, background 0.2s;
     }
-    .btn-outline:hover { border-color: var(--teal-light); background: rgba(45,212,191,0.08); }
+
+    .btn-outline:hover {
+      border-color: var(--teal-light);
+      background: rgba(45, 212, 191, 0.08);
+    }
 
     /* ── SECTIONS COMMON ── */
-    section { padding: 90px 5%; }
-    .section-tag {
-      display: inline-block; font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px;
-      color: var(--teal); margin-bottom: 10px;
+    section {
+      padding: 90px 5%;
     }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
     .section-title {
       font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 800; color: var(--navy); margin-bottom: 16px; line-height: 1.2;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1.2;
     }
-    .section-sub { font-size: 1rem; color: var(--slate-light); max-width: 560px; line-height: 1.7; margin-bottom: 50px; }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--slate-light);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 50px;
+    }
 
     /* ── DMAIC PHASES ── */
-    #dmaic { background: var(--white); }
+    #dmaic {
+      background: var(--white);
+    }
+
     .phases-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 20px;
     }
+
     .phase-card {
       border-radius: var(--radius);
       padding: 28px 22px;
       text-align: center;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
       transition: transform 0.25s, box-shadow 0.25s;
       box-shadow: var(--shadow);
     }
-    .phase-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .phase-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
     .phase-card::after {
       content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.08) 100%);
-    }
-    .phase-icon { font-size: 2.6rem; margin-bottom: 14px; }
-    .phase-name { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 4px; }
-    .phase-full { font-size: 0.78rem; color: rgba(255,255,255,0.75); font-weight: 500; margin-bottom: 12px; }
-    .phase-weeks {
-      display: inline-block; background: rgba(255,255,255,0.2);
-      border-radius: 999px; font-size: 0.72rem; font-weight: 600;
-      color: white; padding: 3px 12px; margin-bottom: 14px;
-    }
-    .phase-hito {
-      font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 500;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.08) 100%);
     }
 
-    .phase-D  { background: linear-gradient(135deg, #1a56db, #3b82f6); }
-    .phase-M  { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-    .phase-A  { background: linear-gradient(135deg, #059669, #10b981); }
-    .phase-I  { background: linear-gradient(135deg, #d97706, #f59e0b); }
-    .phase-C  { background: linear-gradient(135deg, #dc2626, #f87171); }
-    .phase-E  { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
+    .phase-icon {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+    }
+
+    .phase-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .phase-full {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .phase-weeks {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: white;
+      padding: 3px 12px;
+      margin-bottom: 14px;
+    }
+
+    .phase-hito {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    .phase-D {
+      background: linear-gradient(135deg, #1a56db, #3b82f6);
+    }
+
+    .phase-M {
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+    }
+
+    .phase-A {
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .phase-I {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+    }
+
+    .phase-C {
+      background: linear-gradient(135deg, #dc2626, #f87171);
+    }
+
+    .phase-E {
+      background: linear-gradient(135deg, #0d9488, #2dd4bf);
+    }
 
     /* ── HITOS TIMELINE ── */
-    #hitos { background: var(--bg); }
+    #hitos {
+      background: var(--bg);
+    }
+
     .timeline {
       position: relative;
       max-width: 820px;
       margin: 0 auto;
     }
+
     .timeline::before {
       content: '';
-      position: absolute; left: 52px; top: 0; bottom: 0;
-      width: 3px; background: linear-gradient(180deg, var(--blue), var(--teal));
+      position: absolute;
+      left: 52px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--blue), var(--teal));
     }
+
     .tl-item {
-      display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start;
+      display: flex;
+      gap: 28px;
+      margin-bottom: 36px;
+      align-items: flex-start;
     }
+
     .tl-dot {
-      min-width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 0.85rem; color: white;
-      position: relative; z-index: 1; flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      min-width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: white;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
+
     .tl-body {
-      background: var(--card-bg); border-radius: var(--radius);
-      padding: 22px 26px; flex: 1;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      flex: 1;
       box-shadow: var(--shadow);
       border-left: 4px solid transparent;
       transition: transform 0.2s;
     }
-    .tl-body:hover { transform: translateX(4px); }
-    .tl-week { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-    .tl-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .tl-desc { font-size: 0.875rem; color: var(--slate-light); line-height: 1.6; }
+
+    .tl-body:hover {
+      transform: translateX(4px);
+    }
+
+    .tl-week {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .tl-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .tl-desc {
+      font-size: 0.875rem;
+      color: var(--slate-light);
+      line-height: 1.6;
+    }
 
     /* ── DOCENTES ── */
-    #docentes { background: var(--navy); }
-    #docentes .section-tag { color: var(--teal-light); }
-    #docentes .section-title { color: white; }
-    #docentes .section-sub { color: rgba(255,255,255,0.6); }
+    #docentes {
+      background: var(--navy);
+    }
+
+    #docentes .section-tag {
+      color: var(--teal-light);
+    }
+
+    #docentes .section-title {
+      color: white;
+    }
+
+    #docentes .section-sub {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
     .teachers-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 28px;
     }
+
     .teacher-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; padding: 36px 28px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 36px 28px;
       text-align: center;
       transition: transform 0.3s, background 0.3s;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     .teacher-card::before {
-      content: ''; position: absolute;
-      inset: 0; background: linear-gradient(135deg, rgba(45,212,191,0.05), rgba(59,130,246,0.05));
-      opacity: 0; transition: opacity 0.3s;
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.05), rgba(59, 130, 246, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .teacher-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.1); }
-    .teacher-card:hover::before { opacity: 1; }
+
+    .teacher-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .teacher-card:hover::before {
+      opacity: 1;
+    }
+
     .teacher-avatar {
-      width: 110px; height: 110px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.4rem; font-weight: 800; color: white;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: white;
       margin: 0 auto 20px;
       position: relative;
       overflow: hidden;
     }
+
     .teacher-avatar img {
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       object-position: center top;
       border-radius: 50%;
       display: block;
     }
+
     .teacher-avatar::after {
-      content: ''; position: absolute;
-      inset: -4px; border-radius: 50%;
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--teal-light), var(--blue-light));
       z-index: -1;
     }
-    .teacher-name { font-size: 1.15rem; font-weight: 700; color: white; margin-bottom: 6px; }
-    .teacher-role { font-size: 0.82rem; color: var(--teal-light); font-weight: 600; margin-bottom: 14px; }
-    .teacher-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+
+    .teacher-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .teacher-role {
+      font-size: 0.82rem;
+      color: var(--teal-light);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .teacher-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+
     .tag {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.7); font-size: 0.72rem; font-weight: 500;
-      padding: 4px 12px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 999px;
     }
 
     /* ── METODOLOGIA ── */
-    #metodologia { background: var(--white); }
-    .method-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+    #metodologia {
+      background: var(--white);
     }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
     .method-card {
-      background: var(--bg); border-radius: var(--radius);
+      background: var(--bg);
+      border-radius: var(--radius);
       padding: 28px 24px;
-      border: 1px solid rgba(15,37,71,0.08);
+      border: 1px solid rgba(15, 37, 71, 0.08);
       transition: box-shadow 0.2s, transform 0.2s;
     }
-    .method-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .method-icon { font-size: 2rem; margin-bottom: 14px; }
-    .method-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .method-text { font-size: 0.875rem; color: var(--slate-light); line-height: 1.65; }
+
+    .method-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .method-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .method-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .method-text {
+      font-size: 0.875rem;
+      color: var(--slate-light);
+      line-height: 1.65;
+    }
 
     /* ── GRUPOS ── */
-    #grupos { background: var(--bg); }
+    #grupos {
+      background: var(--bg);
+    }
+
     .grupos-visual {
       background: linear-gradient(135deg, var(--navy), #1a3a6e);
-      border-radius: 24px; padding: 48px;
-      display: flex; flex-wrap: wrap; gap: 12px;
+      border-radius: 24px;
+      padding: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
       justify-content: center;
     }
+
     .grupo-chip {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      color: white; font-size: 0.82rem; font-weight: 600;
-      padding: 10px 20px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 999px;
       transition: background 0.2s, transform 0.2s;
       cursor: default;
     }
-    .grupo-chip:hover { background: var(--teal); transform: scale(1.05); }
+
+    .grupo-chip:hover {
+      background: var(--teal);
+      transform: scale(1.05);
+    }
 
     /* ── WORKFLOWS ── */
-    #workflows { background: var(--white); }
-    .wf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    #workflows {
+      background: var(--white);
+    }
+
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
     .wf-card {
       background: var(--bg);
-      border-radius: var(--radius); padding: 24px 22px;
-      border: 1px solid rgba(15,37,71,0.08);
-      display: flex; gap: 16px; align-items: flex-start;
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      border: 1px solid rgba(15, 37, 71, 0.08);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
       transition: box-shadow 0.2s, transform 0.2s;
     }
-    .wf-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
-    .wf-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; flex-shrink: 0;
+
+    .wf-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
     }
-    .wf-label { font-size: 0.72rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-    .wf-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .wf-desc { font-size: 0.82rem; color: var(--slate-light); line-height: 1.5; }
+
+    .wf-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .wf-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .wf-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .wf-desc {
+      font-size: 0.82rem;
+      color: var(--slate-light);
+      line-height: 1.5;
+    }
 
     /* ── FOOTER ── */
     footer {
       background: #040d1a;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       text-align: center;
       padding: 40px 5%;
       font-size: 0.85rem;
     }
-    footer strong { color: var(--teal-light); }
+
+    footer strong {
+      color: var(--teal-light);
+    }
 
     /* ── SCROLL ANIMATION ── */
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── RESPONSIVE NAV ── */
     @media(max-width:640px) {
-      .nav-links { display: none; }
-      .hero-title { font-size: 2rem; }
-      .phases-grid { grid-template-columns: repeat(2, 1fr); }
-      .grupos-visual { padding: 28px; }
+      .nav-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .phases-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grupos-visual {
+        padding: 28px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">📊 <span>SMP</span> | DMAIC</div>
-  <ul class="nav-links">
-    <li><a href="#dmaic">Fases</a></li>
-    <li><a href="#hitos">Hitos</a></li>
-    <li><a href="#docentes">Docentes</a></li>
-    <li><a href="#metodologia">Metodología</a></li>
-    <li><a href="#grupos">Grupos</a></li>
-    <li><a href="#workflows">Herramientas</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">📊 <span>SMP</span> | DMAIC</div>
+    <ul class="nav-links">
+      <li><a href="#dmaic">Fases</a></li>
+      <li><a href="#hitos">Hitos</a></li>
+      <li><a href="#docentes">Docentes</a></li>
+      <li><a href="#metodologia">Metodología</a></li>
+      <li><a href="#grupos">Grupos</a></li>
+      <li><a href="#workflows">Herramientas</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-circle"></div>
-  <div class="hero-circle"></div>
-  <div class="hero-circle"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Ingeniería Industrial · 2026</div>
-    <h1 class="hero-title">Sistema de <span class="accent">Mejora</span><br>de Procesos</h1>
-    <p class="hero-subtitle">Curso de 14 semanas aplicando la metodología <strong style="color:var(--teal-light)">DMAIC</strong> en empresas reales. Aprende a definir, medir, analizar, mejorar y controlar procesos con impacto real.</p>
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-num">14</div><div class="stat-label">Semanas</div></div>
-      <div class="stat-item"><div class="stat-num">16</div><div class="stat-label">Grupos</div></div>
-      <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Hitos</div></div>
-      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Docentes</div></div>
-    </div>
-    <div class="hero-btns">
-      <a href="#dmaic" class="btn-primary">Ver Fases DMAIC →</a>
-      <a href="#hitos" class="btn-outline">Calendario del Curso</a>
-    </div>
-  </div>
-</section>
-
-<!-- DMAIC PHASES -->
-<section id="dmaic">
-  <div class="section-tag">Metodología</div>
-  <h2 class="section-title">Las 5 Fases DMAIC + Exposición</h2>
-  <p class="section-sub">Cada fase guía a los equipos desde la identificación del problema hasta el control sostenido de la mejora. Aplicación en empresa real durante todo el semestre.</p>
-  <div class="phases-grid fade-in">
-    <div class="phase-card phase-D">
-      <div class="phase-icon">🎯</div>
-      <div class="phase-name">DEFINE</div>
-      <div class="phase-full">Definir el problema</div>
-      <div class="phase-weeks">Sem 1 – 2</div>
-      <div class="phase-hito">📋 Hito 1 (Sem 2)</div>
-    </div>
-    <div class="phase-card phase-M">
-      <div class="phase-icon">📏</div>
-      <div class="phase-name">MEASURE</div>
-      <div class="phase-full">Medir el proceso</div>
-      <div class="phase-weeks">Sem 3 – 5</div>
-      <div class="phase-hito">📋 Hito 2 (Sem 4)</div>
-    </div>
-    <div class="phase-card phase-A">
-      <div class="phase-icon">🔍</div>
-      <div class="phase-name">ANALYZE</div>
-      <div class="phase-full">Analizar causas raíz</div>
-      <div class="phase-weeks">Sem 6 – 8</div>
-      <div class="phase-hito">📋 Hito 3 / Parcial (Sem 7)</div>
-    </div>
-    <div class="phase-card phase-I">
-      <div class="phase-icon">⚡</div>
-      <div class="phase-name">IMPROVE</div>
-      <div class="phase-full">Mejorar el proceso</div>
-      <div class="phase-weeks">Sem 9 – 11</div>
-      <div class="phase-hito">📋 Hito 4 (Sem 10)</div>
-    </div>
-    <div class="phase-card phase-C">
-      <div class="phase-icon">🛡️</div>
-      <div class="phase-name">CONTROL</div>
-      <div class="phase-full">Controlar y sostener</div>
-      <div class="phase-weeks">Sem 12 – 13</div>
-      <div class="phase-hito">📋 Hito 5 / Final (Sem 13)</div>
-    </div>
-    <div class="phase-card phase-E">
-      <div class="phase-icon">🏆</div>
-      <div class="phase-name">EXPOSICIÓN</div>
-      <div class="phase-full">Presentación final</div>
-      <div class="phase-weeks">Sem 14</div>
-      <div class="phase-hito">📋 Hito 6 (Sem 14)</div>
-    </div>
-  </div>
-</section>
-
-<!-- HITOS TIMELINE -->
-<section id="hitos">
-  <div class="section-tag">Evaluación</div>
-  <h2 class="section-title">Hitos de Evaluación</h2>
-  <p class="section-sub">Seis entregas progresivas que aseguran el avance del proyecto a lo largo del semestre.</p>
-  <div class="timeline fade-in">
-
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">H1</div>
-      <div class="tl-body" style="border-color:#3b82f6">
-        <div class="tl-week" style="color:#3b82f6">SEMANA 2 · DEFINE</div>
-        <div class="tl-title">Hito 1 – Definición del Problema</div>
-        <div class="tl-desc">Charter del proyecto, alcance, VOC y diagrama SIPOC. Identificación del proceso a mejorar en la empresa asignada.</div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Ingeniería Industrial · 2026</div>
+      <h1 class="hero-title">Sistema de <span class="accent">Mejora</span><br>de Procesos</h1>
+      <p class="hero-subtitle">Curso de 14 semanas aplicando la metodología <strong
+          style="color:var(--teal-light)">DMAIC</strong> en empresas reales. Aprende a definir, medir, analizar, mejorar
+        y controlar procesos con impacto real.</p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">14</div>
+          <div class="stat-label">Semanas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">16</div>
+          <div class="stat-label">Grupos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Hitos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Docentes</div>
+        </div>
+      </div>
+      <div class="hero-btns">
+        <a href="#dmaic" class="btn-primary">Ver Fases DMAIC →</a>
+        <a href="#hitos" class="btn-outline">Calendario del Curso</a>
       </div>
     </div>
+  </section>
 
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">H2</div>
-      <div class="tl-body" style="border-color:#a855f7">
-        <div class="tl-week" style="color:#a855f7">SEMANA 4 · MEASURE</div>
-        <div class="tl-title">Hito 2 – Medición del Proceso</div>
-        <div class="tl-desc">Recolección de datos, capacidad del proceso, CTQs y baseline de métricas. Diagnóstico cuantitativo del estado actual.</div>
+  <!-- DMAIC PHASES -->
+  <section id="dmaic">
+    <div class="section-tag">Metodología</div>
+    <h2 class="section-title">Las 5 Fases DMAIC + Exposición</h2>
+    <p class="section-sub">Cada fase guía a los equipos desde la identificación del problema hasta el control sostenido
+      de la mejora. Aplicación en empresa real durante todo el semestre.</p>
+    <div class="phases-grid fade-in">
+      <div class="phase-card phase-D">
+        <div class="phase-icon">🎯</div>
+        <div class="phase-name">DEFINE</div>
+        <div class="phase-full">Definir el problema</div>
+        <div class="phase-weeks">Sem 1 – 2</div>
+        <div class="phase-hito">📋 Hito 1 (Sem 2)</div>
+      </div>
+      <div class="phase-card phase-M">
+        <div class="phase-icon">📏</div>
+        <div class="phase-name">MEASURE</div>
+        <div class="phase-full">Medir el proceso</div>
+        <div class="phase-weeks">Sem 3 – 5</div>
+        <div class="phase-hito">📋 Hito 2 (Sem 4)</div>
+      </div>
+      <div class="phase-card phase-A">
+        <div class="phase-icon">🔍</div>
+        <div class="phase-name">ANALYZE</div>
+        <div class="phase-full">Analizar causas raíz</div>
+        <div class="phase-weeks">Sem 6 – 8</div>
+        <div class="phase-hito">📋 Hito 3 / Parcial (Sem 7)</div>
+      </div>
+      <div class="phase-card phase-I">
+        <div class="phase-icon">⚡</div>
+        <div class="phase-name">IMPROVE</div>
+        <div class="phase-full">Mejorar el proceso</div>
+        <div class="phase-weeks">Sem 9 – 11</div>
+        <div class="phase-hito">📋 Hito 4 (Sem 10)</div>
+      </div>
+      <div class="phase-card phase-C">
+        <div class="phase-icon">🛡️</div>
+        <div class="phase-name">CONTROL</div>
+        <div class="phase-full">Controlar y sostener</div>
+        <div class="phase-weeks">Sem 12 – 13</div>
+        <div class="phase-hito">📋 Hito 5 / Final (Sem 13)</div>
+      </div>
+      <div class="phase-card phase-E">
+        <div class="phase-icon">🏆</div>
+        <div class="phase-name">EXPOSICIÓN</div>
+        <div class="phase-full">Presentación final</div>
+        <div class="phase-weeks">Sem 14</div>
+        <div class="phase-hito">📋 Hito 6 (Sem 14)</div>
       </div>
     </div>
+  </section>
 
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#059669,#10b981)">H3</div>
-      <div class="tl-body" style="border-color:#10b981">
-        <div class="tl-week" style="color:#10b981">SEMANA 7 · ANALYZE · PARCIAL</div>
-        <div class="tl-title">Hito 3 – Análisis de Causas Raíz</div>
-        <div class="tl-desc">Diagrama Ishikawa, Pareto, análisis de datos y determinación de causas raíz validadas. Examen Parcial integrado.</div>
+  <!-- HITOS TIMELINE -->
+  <section id="hitos">
+    <div class="section-tag">Evaluación</div>
+    <h2 class="section-title">Hitos de Evaluación</h2>
+    <p class="section-sub">Seis entregas progresivas que aseguran el avance del proyecto a lo largo del semestre.</p>
+    <div class="timeline fade-in">
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">H1</div>
+        <div class="tl-body" style="border-color:#3b82f6">
+          <div class="tl-week" style="color:#3b82f6">SEMANA 2 · DEFINE</div>
+          <div class="tl-title">Hito 1 – Definición del Problema</div>
+          <div class="tl-desc">Charter del proyecto, alcance, VOC y diagrama SIPOC. Identificación del proceso a mejorar
+            en la empresa asignada.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">H2</div>
+        <div class="tl-body" style="border-color:#a855f7">
+          <div class="tl-week" style="color:#a855f7">SEMANA 4 · MEASURE</div>
+          <div class="tl-title">Hito 2 – Medición del Proceso</div>
+          <div class="tl-desc">Recolección de datos, capacidad del proceso, CTQs y baseline de métricas. Diagnóstico
+            cuantitativo del estado actual.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#059669,#10b981)">H3</div>
+        <div class="tl-body" style="border-color:#10b981">
+          <div class="tl-week" style="color:#10b981">SEMANA 7 · ANALYZE · PARCIAL</div>
+          <div class="tl-title">Hito 3 – Análisis de Causas Raíz</div>
+          <div class="tl-desc">Diagrama Ishikawa, Pareto, análisis de datos y determinación de causas raíz validadas.
+            Examen Parcial integrado.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#d97706,#f59e0b)">H4</div>
+        <div class="tl-body" style="border-color:#f59e0b">
+          <div class="tl-week" style="color:#d97706">SEMANA 10 · IMPROVE</div>
+          <div class="tl-title">Hito 4 – Propuesta de Mejora</div>
+          <div class="tl-desc">Generación de soluciones, matriz de selección, plan de implementación y análisis
+            costo-beneficio de la propuesta.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#dc2626,#f87171)">H5</div>
+        <div class="tl-body" style="border-color:#f87171">
+          <div class="tl-week" style="color:#dc2626">SEMANA 13 · CONTROL · FINAL</div>
+          <div class="tl-title">Hito 5 – Plan de Control</div>
+          <div class="tl-desc">Cartas de control, procedimientos estandarizados, plan de monitoreo y sostenibilidad de
+            la mejora. Examen Final.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:linear-gradient(135deg,#0d9488,#2dd4bf)">H6</div>
+        <div class="tl-body" style="border-color:#2dd4bf">
+          <div class="tl-week" style="color:#0d9488">SEMANA 14 · EXPOSICIÓN FINAL</div>
+          <div class="tl-title">Hito 6 – Presentación Final</div>
+          <div class="tl-desc">Exposición integral del proyecto DMAIC ante jurado. Defensa técnica con preguntas
+            personalizadas por grupo.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOCENTES -->
+  <section id="docentes">
+    <div class="section-tag">Equipo Docente</div>
+    <h2 class="section-title">Nuestros Profesores</h2>
+    <p class="section-sub">Ingenieros con experiencia en mejora continua, Lean Six Sigma y gestión de operaciones en
+      industria real.</p>
+    <div class="teachers-grid fade-in">
+
+      <div class="teacher-card">
+        <div class="teacher-avatar">
+          <img src="fotos/orlando.png" alt="Orlando Paz" />
+        </div>
+        <div class="teacher-name">Orlando Paz</div>
+        <div class="teacher-role">Docente del Curso</div>
+        <div class="teacher-tags">
+          <span class="tag">Lean Six Sigma</span>
+          <span class="tag">DMAIC</span>
+          <span class="tag">KPIs</span>
+        </div>
+      </div>
+
+      <div class="teacher-card">
+        <div class="teacher-avatar">
+          <img src="fotos/jorge.png" alt="Jorge Lopez" />
+        </div>
+        <div class="teacher-name">Jorge Lopez</div>
+        <div class="teacher-role">Docente del Curso</div>
+        <div class="teacher-tags">
+          <span class="tag">Procesos</span>
+          <span class="tag">Calidad</span>
+          <span class="tag">Estadística</span>
+        </div>
+      </div>
+
+      <div class="teacher-card">
+        <div class="teacher-avatar" style="background:linear-gradient(135deg,#059669,#10b981)">FO</div>
+        <div class="teacher-name">Fernando Ojeda</div>
+        <div class="teacher-role">Docente del Curso</div>
+        <div class="teacher-tags">
+          <span class="tag">Operaciones</span>
+          <span class="tag">Mejora Continua</span>
+          <span class="tag">Control</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- METODOLOGIA -->
+  <section id="metodologia">
+    <div class="section-tag">Enfoque Pedagógico</div>
+    <h2 class="section-title">¿Cómo aprendemos?</h2>
+    <p class="section-sub">Aprendizaje basado en proyectos reales con herramientas industriales de clase mundial.</p>
+    <div class="method-grid fade-in">
+      <div class="method-card">
+        <div class="method-icon">🏭</div>
+        <div class="method-title">Empresa Real</div>
+        <div class="method-text">Cada equipo trabaja con una empresa real, aplicando DMAIC a un problema genuino con
+          datos reales.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">📊</div>
+        <div class="method-title">Análisis Estadístico</div>
+        <div class="method-text">Uso de herramientas estadísticas: cartas de control, Pareto, histogramas, regresión y
+          análisis de hipótesis.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🤝</div>
+        <div class="method-title">Trabajo en Equipo</div>
+        <div class="method-text">Equipos de estudiantes que simulan un equipo Six Sigma real con roles definidos y
+          entregables conjuntos.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🎤</div>
+        <div class="method-title">Exposición Final</div>
+        <div class="method-text">Presentación ante jurado con defensa técnica de la propuesta de mejora desarrollada
+          durante el semestre.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">📝</div>
+        <div class="method-title">Retroalimentación Continua</div>
+        <div class="method-text">Sistema de retroalimentación detallada por hito para guiar el avance y corregir
+          desviaciones a tiempo.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🤖</div>
+        <div class="method-title">Herramientas IA</div>
+        <div class="method-text">Uso de flujos automatizados para generación de exámenes, retroalimentación y preguntas
+          personalizadas por grupo.</div>
       </div>
     </div>
+  </section>
 
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#d97706,#f59e0b)">H4</div>
-      <div class="tl-body" style="border-color:#f59e0b">
-        <div class="tl-week" style="color:#d97706">SEMANA 10 · IMPROVE</div>
-        <div class="tl-title">Hito 4 – Propuesta de Mejora</div>
-        <div class="tl-desc">Generación de soluciones, matriz de selección, plan de implementación y análisis costo-beneficio de la propuesta.</div>
+  <!-- GRUPOS -->
+  <section id="grupos">
+    <div class="section-tag">Participantes</div>
+    <h2 class="section-title">16 Grupos de Trabajo</h2>
+    <p class="section-sub">Cada grupo aplica la metodología DMAIC en una empresa diferente, generando diversidad de
+      casos y aprendizajes cruzados.</p>
+    <div class="grupos-visual fade-in">
+      <div class="grupo-chip">Grupo 01</div>
+      <div class="grupo-chip">Grupo 02</div>
+      <div class="grupo-chip">Grupo 03</div>
+      <div class="grupo-chip">Grupo 04</div>
+      <div class="grupo-chip">Grupo 05</div>
+      <div class="grupo-chip">Grupo 06</div>
+      <div class="grupo-chip">Grupo 07</div>
+      <div class="grupo-chip">Grupo 08</div>
+      <div class="grupo-chip">Grupo 09</div>
+      <div class="grupo-chip">Grupo 10</div>
+      <div class="grupo-chip">Grupo 11</div>
+      <div class="grupo-chip">Grupo 12</div>
+      <div class="grupo-chip">Grupo 13</div>
+      <div class="grupo-chip">Grupo 14</div>
+      <div class="grupo-chip">Grupo 15</div>
+      <div class="grupo-chip">Grupo 16</div>
+    </div>
+  </section>
+
+  <!-- WORKFLOWS -->
+  <section id="workflows">
+    <div class="section-tag">Herramientas Docentes</div>
+    <h2 class="section-title">Automatizaciones del Curso</h2>
+    <p class="section-sub">Workflows inteligentes que apoyan al docente en la gestión y evaluación del curso.</p>
+    <div class="wf-grid fade-in">
+      <div class="wf-card">
+        <div class="wf-icon" style="background:#eff6ff">📄</div>
+        <div>
+          <div class="wf-label">/generar_examen</div>
+          <div class="wf-title">Generar Examen</div>
+          <div class="wf-desc">Genera automáticamente el examen de evaluación para cualquier hito y fase DMAIC.</div>
+        </div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-icon" style="background:#f5f3ff">📊</div>
+        <div>
+          <div class="wf-label">/generar_presentacion</div>
+          <div class="wf-title">Generar Presentación</div>
+          <div class="wf-desc">Crea presentaciones alineadas al sílabo y a la fase DMAIC correspondiente.</div>
+        </div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-icon" style="background:#ecfdf5">🎤</div>
+        <div>
+          <div class="wf-label">/generar_preguntas_exposicion</div>
+          <div class="wf-title">Preguntas de Exposición</div>
+          <div class="wf-desc">Genera preguntas personalizadas para la defensa final basadas en el documento del grupo.
+          </div>
+        </div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-icon" style="background:#fffbeb">📋</div>
+        <div>
+          <div class="wf-label">/evaluar_entregable</div>
+          <div class="wf-title">Evaluar Entregable</div>
+          <div class="wf-desc">Evalúa el documento Word de un grupo contra la rúbrica del hito correspondiente.</div>
+        </div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-icon" style="background:#fef2f2">💬</div>
+        <div>
+          <div class="wf-label">/generar_retroalimentacion</div>
+          <div class="wf-title">Retroalimentación</div>
+          <div class="wf-desc">Genera retroalimentación detallada y personalizada para cada grupo después de la
+            revisión.</div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#dc2626,#f87171)">H5</div>
-      <div class="tl-body" style="border-color:#f87171">
-        <div class="tl-week" style="color:#dc2626">SEMANA 13 · CONTROL · FINAL</div>
-        <div class="tl-title">Hito 5 – Plan de Control</div>
-        <div class="tl-desc">Cartas de control, procedimientos estandarizados, plan de monitoreo y sostenibilidad de la mejora. Examen Final.</div>
-      </div>
-    </div>
+  <!-- FOOTER -->
+  <footer>
+    <p>Sistema de Mejora de Procesos · Metodología <strong>DMAIC</strong></p>
+    <p style="margin-top:8px">Docentes: <strong>Orlando Paz</strong> · <strong>Jorge Lopez</strong> · <strong>Fernando
+        Ojeda</strong></p>
+    <p style="margin-top:8px;font-size:0.78rem">Ingeniería Industrial · 2026</p>
+  </footer>
 
-    <div class="tl-item">
-      <div class="tl-dot" style="background:linear-gradient(135deg,#0d9488,#2dd4bf)">H6</div>
-      <div class="tl-body" style="border-color:#2dd4bf">
-        <div class="tl-week" style="color:#0d9488">SEMANA 14 · EXPOSICIÓN FINAL</div>
-        <div class="tl-title">Hito 6 – Presentación Final</div>
-        <div class="tl-desc">Exposición integral del proyecto DMAIC ante jurado. Defensa técnica con preguntas personalizadas por grupo.</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DOCENTES -->
-<section id="docentes">
-  <div class="section-tag">Equipo Docente</div>
-  <h2 class="section-title">Nuestros Profesores</h2>
-  <p class="section-sub">Ingenieros con experiencia en mejora continua, Lean Six Sigma y gestión de operaciones en industria real.</p>
-  <div class="teachers-grid fade-in">
-
-    <div class="teacher-card">
-      <div class="teacher-avatar">
-        <img src="fotos/orlando.jpg" alt="Orlando Paz" />
-      </div>
-      <div class="teacher-name">Orlando Paz</div>
-      <div class="teacher-role">Docente del Curso</div>
-      <div class="teacher-tags">
-        <span class="tag">Lean Six Sigma</span>
-        <span class="tag">DMAIC</span>
-        <span class="tag">KPIs</span>
-      </div>
-    </div>
-
-    <div class="teacher-card">
-      <div class="teacher-avatar">
-        <img src="fotos/jorge.jpg" alt="Jorge Lopez" />
-      </div>
-      <div class="teacher-name">Jorge Lopez</div>
-      <div class="teacher-role">Docente del Curso</div>
-      <div class="teacher-tags">
-        <span class="tag">Procesos</span>
-        <span class="tag">Calidad</span>
-        <span class="tag">Estadística</span>
-      </div>
-    </div>
-
-    <div class="teacher-card">
-      <div class="teacher-avatar" style="background:linear-gradient(135deg,#059669,#10b981)">FO</div>
-      <div class="teacher-name">Fernando Ojeda</div>
-      <div class="teacher-role">Docente del Curso</div>
-      <div class="teacher-tags">
-        <span class="tag">Operaciones</span>
-        <span class="tag">Mejora Continua</span>
-        <span class="tag">Control</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- METODOLOGIA -->
-<section id="metodologia">
-  <div class="section-tag">Enfoque Pedagógico</div>
-  <h2 class="section-title">¿Cómo aprendemos?</h2>
-  <p class="section-sub">Aprendizaje basado en proyectos reales con herramientas industriales de clase mundial.</p>
-  <div class="method-grid fade-in">
-    <div class="method-card">
-      <div class="method-icon">🏭</div>
-      <div class="method-title">Empresa Real</div>
-      <div class="method-text">Cada equipo trabaja con una empresa real, aplicando DMAIC a un problema genuino con datos reales.</div>
-    </div>
-    <div class="method-card">
-      <div class="method-icon">📊</div>
-      <div class="method-title">Análisis Estadístico</div>
-      <div class="method-text">Uso de herramientas estadísticas: cartas de control, Pareto, histogramas, regresión y análisis de hipótesis.</div>
-    </div>
-    <div class="method-card">
-      <div class="method-icon">🤝</div>
-      <div class="method-title">Trabajo en Equipo</div>
-      <div class="method-text">Equipos de estudiantes que simulan un equipo Six Sigma real con roles definidos y entregables conjuntos.</div>
-    </div>
-    <div class="method-card">
-      <div class="method-icon">🎤</div>
-      <div class="method-title">Exposición Final</div>
-      <div class="method-text">Presentación ante jurado con defensa técnica de la propuesta de mejora desarrollada durante el semestre.</div>
-    </div>
-    <div class="method-card">
-      <div class="method-icon">📝</div>
-      <div class="method-title">Retroalimentación Continua</div>
-      <div class="method-text">Sistema de retroalimentación detallada por hito para guiar el avance y corregir desviaciones a tiempo.</div>
-    </div>
-    <div class="method-card">
-      <div class="method-icon">🤖</div>
-      <div class="method-title">Herramientas IA</div>
-      <div class="method-text">Uso de flujos automatizados para generación de exámenes, retroalimentación y preguntas personalizadas por grupo.</div>
-    </div>
-  </div>
-</section>
-
-<!-- GRUPOS -->
-<section id="grupos">
-  <div class="section-tag">Participantes</div>
-  <h2 class="section-title">16 Grupos de Trabajo</h2>
-  <p class="section-sub">Cada grupo aplica la metodología DMAIC en una empresa diferente, generando diversidad de casos y aprendizajes cruzados.</p>
-  <div class="grupos-visual fade-in">
-    <div class="grupo-chip">Grupo 01</div>
-    <div class="grupo-chip">Grupo 02</div>
-    <div class="grupo-chip">Grupo 03</div>
-    <div class="grupo-chip">Grupo 04</div>
-    <div class="grupo-chip">Grupo 05</div>
-    <div class="grupo-chip">Grupo 06</div>
-    <div class="grupo-chip">Grupo 07</div>
-    <div class="grupo-chip">Grupo 08</div>
-    <div class="grupo-chip">Grupo 09</div>
-    <div class="grupo-chip">Grupo 10</div>
-    <div class="grupo-chip">Grupo 11</div>
-    <div class="grupo-chip">Grupo 12</div>
-    <div class="grupo-chip">Grupo 13</div>
-    <div class="grupo-chip">Grupo 14</div>
-    <div class="grupo-chip">Grupo 15</div>
-    <div class="grupo-chip">Grupo 16</div>
-  </div>
-</section>
-
-<!-- WORKFLOWS -->
-<section id="workflows">
-  <div class="section-tag">Herramientas Docentes</div>
-  <h2 class="section-title">Automatizaciones del Curso</h2>
-  <p class="section-sub">Workflows inteligentes que apoyan al docente en la gestión y evaluación del curso.</p>
-  <div class="wf-grid fade-in">
-    <div class="wf-card">
-      <div class="wf-icon" style="background:#eff6ff">📄</div>
-      <div>
-        <div class="wf-label">/generar_examen</div>
-        <div class="wf-title">Generar Examen</div>
-        <div class="wf-desc">Genera automáticamente el examen de evaluación para cualquier hito y fase DMAIC.</div>
-      </div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-icon" style="background:#f5f3ff">📊</div>
-      <div>
-        <div class="wf-label">/generar_presentacion</div>
-        <div class="wf-title">Generar Presentación</div>
-        <div class="wf-desc">Crea presentaciones alineadas al sílabo y a la fase DMAIC correspondiente.</div>
-      </div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-icon" style="background:#ecfdf5">🎤</div>
-      <div>
-        <div class="wf-label">/generar_preguntas_exposicion</div>
-        <div class="wf-title">Preguntas de Exposición</div>
-        <div class="wf-desc">Genera preguntas personalizadas para la defensa final basadas en el documento del grupo.</div>
-      </div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-icon" style="background:#fffbeb">📋</div>
-      <div>
-        <div class="wf-label">/evaluar_entregable</div>
-        <div class="wf-title">Evaluar Entregable</div>
-        <div class="wf-desc">Evalúa el documento Word de un grupo contra la rúbrica del hito correspondiente.</div>
-      </div>
-    </div>
-    <div class="wf-card">
-      <div class="wf-icon" style="background:#fef2f2">💬</div>
-      <div>
-        <div class="wf-label">/generar_retroalimentacion</div>
-        <div class="wf-title">Retroalimentación</div>
-        <div class="wf-desc">Genera retroalimentación detallada y personalizada para cada grupo después de la revisión.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>Sistema de Mejora de Procesos · Metodología <strong>DMAIC</strong></p>
-  <p style="margin-top:8px">Docentes: <strong>Orlando Paz</strong> · <strong>Jorge Lopez</strong> · <strong>Fernando Ojeda</strong></p>
-  <p style="margin-top:8px;font-size:0.78rem">Ingeniería Industrial · 2026</p>
-</footer>
-
-<script>
-  // Scroll fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 </body>
+
 </html>
