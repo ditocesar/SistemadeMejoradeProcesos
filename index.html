@@ -245,11 +245,18 @@
     .teacher-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.1); }
     .teacher-card:hover::before { opacity: 1; }
     .teacher-avatar {
-      width: 100px; height: 100px; border-radius: 50%;
+      width: 110px; height: 110px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 2.4rem; font-weight: 800; color: white;
       margin: 0 auto 20px;
       position: relative;
+      overflow: hidden;
+    }
+    .teacher-avatar img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      display: block;
     }
     .teacher-avatar::after {
       content: ''; position: absolute;
@@ -502,7 +509,9 @@
   <div class="teachers-grid fade-in">
 
     <div class="teacher-card">
-      <div class="teacher-avatar" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">OP</div>
+      <div class="teacher-avatar">
+        <img src="Fotos/Orlando.jpeg" alt="Orlando Paz" />
+      </div>
       <div class="teacher-name">Orlando Paz</div>
       <div class="teacher-role">Docente del Curso</div>
       <div class="teacher-tags">
@@ -513,7 +522,9 @@
     </div>
 
     <div class="teacher-card">
-      <div class="teacher-avatar" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">JL</div>
+      <div class="teacher-avatar">
+        <img src="Fotos/Jorge.jpeg" alt="Jorge Lopez" />
+      </div>
       <div class="teacher-name">Jorge Lopez</div>
       <div class="teacher-role">Docente del Curso</div>
       <div class="teacher-tags">
